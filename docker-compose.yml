@@ -76,6 +76,7 @@ services:
       - "9090:9090"
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./alerts.yml:/etc/prometheus/alerts.yml
     depends_on:
       api:
         condition: service_healthy
@@ -116,6 +117,17 @@ services:
     depends_on:
       - loki
     restart: unless-stopped  
+
+  alertmanager:
+    image: prom/alertmanager:latest
+    container_name: simplon_rag_alertmanager
+    ports:
+      - "9093:9093"
+    volumes:
+      - ./alertmanager.yml:/etc/alertmanager/alertmanager.yml.tmpl
+    environment:
+      - DISCORD_WEBHOOK_URL=${DISCORD_WEBHOOK_URL}
+    entrypoint: /bin/sh -c "sed 's|$${DISCORD_WEBHOOK_URL}|'\"$DISCORD_WEBHOOK_URL\"'|g' /etc/alertmanager/alertmanager.yml.tmpl > /etc/alertmanager/alertmanager.yml && alertmanager --config.file=/etc/alertmanager/alertmanager.yml"
 
 volumes:
   pgdata:
