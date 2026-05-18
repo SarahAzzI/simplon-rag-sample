@@ -5,6 +5,8 @@ from fastapi import FastAPI
 from rag.api.routers import chat, eval, health, ingestion
 from rag.db.session import engine
 from prometheus_fastapi_instrumentator import Instrumentator
+from rag.api.middleware import RequestIdMiddleware
+
 
 
 
@@ -22,6 +24,7 @@ def create_app() -> FastAPI:
         version="0.1.0",
         lifespan=lifespan,
     )
+    app.add_middleware(RequestIdMiddleware)
     Instrumentator().instrument(app).expose(app)
 
     app.include_router(health.router, prefix="/api/v1")

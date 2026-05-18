@@ -1,0 +1,20 @@
+groups:
+  - name: simplon-rag
+    rules:
+      - alert: LatenceP95Haute
+        expr: histogram_quantile(0.95, rate(http_request_duration_seconds_bucket{handler=~".*/messages"}[5m])) > 2
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Latence p95 trop haute sur /messages"
+          description: "La latence p95 est {{ $value }}s sur /messages (seuil: 2s)"
+
+      - alert: TauxErreur5xxEleve
+        expr: rate(http_requests_total{status=~"5.."}[5m]) / rate(http_requests_total[5m]) * 100 > 5
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Taux d'erreurs 5xx élevé"
+          description: "Le taux d'erreurs 5xx est {{ $value }}% (seuil: 5%)"
