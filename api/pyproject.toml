@@ -35,6 +35,7 @@ dependencies = [
     "python-json-logger>=4.1.0",
     "prometheus-client>=0.25.0",
     "prometheus-fastapi-instrumentator>=7.1.0",
+    "google-cloud-storage>=3.10.1",
 ]
 
 [project.optional-dependencies]

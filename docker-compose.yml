@@ -129,9 +129,20 @@ services:
       - DISCORD_WEBHOOK_URL=${DISCORD_WEBHOOK_URL}
     entrypoint: /bin/sh -c "sed 's|$${DISCORD_WEBHOOK_URL}|'\"$DISCORD_WEBHOOK_URL\"'|g' /etc/alertmanager/alertmanager.yml.tmpl > /etc/alertmanager/alertmanager.yml && alertmanager --config.file=/etc/alertmanager/alertmanager.yml"
 
+  fake-gcs:
+    image: fsouza/fake-gcs-server:latest
+    container_name: simplon_rag_fake_gcs
+    ports:
+      - "4443:4443"
+    command: ["-scheme", "http", "-port", "4443", "-external-url", "http://fake-gcs:4443"]
+    volumes:
+      - fake_gcs_data:/data
+    restart: unless-stopped    
+
 volumes:
   pgdata:
   api_data_docs:
   api_data_eval:
   grafana_data:
   loki_data:
+  fake_gcs_data:

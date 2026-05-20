@@ -34,6 +34,10 @@ class Settings(BaseSettings):
     product_name: str = "Dev IA"
     agent_max_retries: int = 2
 
+    # GCS / Fake GCS
+    gcs_bucket: str = "simplon-rag-corpus"
+    gcs_endpoint: str | None = None  # None = vrai GCS en prod
+
     @property
     def database_url(self) -> str:
         return (

@@ -10,6 +10,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from rag.db.models.document import Document
 from rag.db.session import get_db
 from rag.rag.ingestion.pipeline import ingest_pdf, ingest_url
+from rag.storage.gcs import upload_to_gcs
 
 router = APIRouter(prefix="/documents", tags=["ingestion"])
 
@@ -54,10 +55,15 @@ async def ingest_document(
     if not file.filename or not file.filename.lower().endswith(".pdf"):
         raise HTTPException(status_code=400, detail="Only PDF files are supported")
 
-    with tempfile.NamedTemporaryFile(suffix=".pdf", delete=False) as tmp:
-        tmp.write(await file.read())
-        tmp_path = Path(tmp.name)
+    content = await file.read()
 
+    # 1 - Stocker sur GCS
+    await upload_to_gcs(file.filename, content)
+
+    # 2 - Ingérer depuis le fichier temporaire
+    with tempfile.NamedTemporaryFile(suffix=".pdf", delete=False) as tmp:
+        tmp.write(content)
+        tmp_path = Path(tmp.name)
     try:
         result = await ingest_pdf(tmp_path, db)
     finally:
@@ -68,7 +74,7 @@ async def ingest_document(
         "filename": result.filename,
         "chunks_created": result.chunks_created,
         "already_existed": result.already_existed,
-    }
+    }        
 
 
 @router.get("")
