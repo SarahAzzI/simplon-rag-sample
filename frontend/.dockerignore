@@ -16,3 +16,7 @@ tests/
 .git/
 node_modules/
 .svelte-kit/
+docker-compose*.yml
+Dockerfile*
+.dockerignore
+README.md

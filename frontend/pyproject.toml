@@ -2,7 +2,7 @@
 name = "rag-frontend"
 version = "0.1.0"
 description = "Streamlit frontend for the RAG sample"
-readme = "README.md"
+# readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
     "streamlit>=1.35",

@@ -2,7 +2,7 @@
 name = "simplon-rag-sample"
 version = "0.1.0"
 description = "Sample RAG support chatbot"
-readme = "README.md"
+# readme = "README.md" 
 requires-python = ">=3.14"
 dependencies = [
     # Evaluation
