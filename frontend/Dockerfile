@@ -17,7 +17,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 WORKDIR /app
 
-COPY pyproject.toml uv.lock README.md ./
+COPY pyproject.toml uv.lock  ./
 
 # --- Dev stage: full deps, runOnSave for hot reload ---
 FROM base AS dev

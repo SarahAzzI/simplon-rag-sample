@@ -23,7 +23,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         curl \
     && rm -rf /var/lib/apt/lists/*
 
-COPY pyproject.toml uv.lock README.md ./
+COPY pyproject.toml uv.lock ./
 
 # --- Dev stage: full deps including dev tools, hot reload ---
 FROM builder AS dev
