@@ -40,6 +40,13 @@ class Settings(BaseSettings):
 
     @property
     def database_url(self) -> str:
+        if self.postgres_host.startswith("/cloudsql"):
+            # Cloud SQL socket Unix
+            return (
+                f"postgresql+asyncpg://{self.postgres_user}:{self.postgres_password}"
+                f"@/{self.postgres_db}?host={self.postgres_host}"
+            )
+        # Local → host:port classique
         return (
             f"postgresql+asyncpg://{self.postgres_user}:{self.postgres_password}"
             f"@{self.postgres_host}:{self.postgres_port}/{self.postgres_db}"
@@ -47,6 +54,13 @@ class Settings(BaseSettings):
 
     @property
     def database_url_sync(self) -> str:
+        if self.postgres_host.startswith("/cloudsql"):
+            # Cloud SQL socket Unix
+            return (
+                f"postgresql+psycopg://{self.postgres_user}:{self.postgres_password}"
+                f"@/{self.postgres_db}?host={self.postgres_host}"
+            )
+        # Local → host:port classique
         return (
             f"postgresql+psycopg://{self.postgres_user}:{self.postgres_password}"
             f"@{self.postgres_host}:{self.postgres_port}/{self.postgres_db}"
