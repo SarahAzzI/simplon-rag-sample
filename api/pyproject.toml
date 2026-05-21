@@ -36,6 +36,7 @@ dependencies = [
     "prometheus-client>=0.25.0",
     "prometheus-fastapi-instrumentator>=7.1.0",
     "google-cloud-storage>=3.10.1",
+    "google-cloud-secret-manager>=2.28.0",
 ]
 
 [project.optional-dependencies]
