@@ -42,6 +42,9 @@ jobs:
 
       - name: Tests
         run: uv run pytest --tb=short
+        env:
+          MISTRAL_API_KEY: fake-key-for-ci
+          POSTGRES_PASSWORD: fake-password-for-ci
         # Si pas encore de tests : remplacer par `echo "no tests yet"`
 
   # ─────────────────────────────────────────
