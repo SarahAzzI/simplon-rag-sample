@@ -1,7 +1,8 @@
 import uvicorn
+
 from rag.api.app import create_app
-from rag.config.settings import get_settings
 from rag.config.logging import setup_logging
+from rag.config.settings import get_settings
 
 setup_logging()
 app = create_app()
