@@ -35,7 +35,7 @@ jobs:
           cache-dependency-glob: frontend/pyproject.toml
 
       - name: Install dependencies
-        run: uv sync
+        run: uv sync --extra dev
 
       - name: Lint (ruff)
         run: uv run ruff check .
