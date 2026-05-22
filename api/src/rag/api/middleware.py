@@ -1,5 +1,6 @@
-import uuid
 import logging
+import uuid
+
 from starlette.middleware.base import BaseHTTPMiddleware
 
 logger = logging.getLogger(__name__)

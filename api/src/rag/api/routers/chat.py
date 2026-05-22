@@ -1,8 +1,10 @@
+import logging
 import uuid
+
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel
 from sqlalchemy.ext.asyncio import AsyncSession
-import logging
+
 from rag.db.session import get_db
 from rag.rag.chat_service import ChatService, ConversationNotFoundError
 

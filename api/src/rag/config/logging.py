@@ -1,5 +1,7 @@
 import logging
+
 from pythonjsonlogger import jsonlogger
+
 
 def setup_logging(log_level: str = "INFO"):
     logger = logging.getLogger()

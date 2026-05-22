@@ -1,6 +1,8 @@
-from google.cloud import storage
 from google.api_core.client_options import ClientOptions
+from google.cloud import storage
+
 from rag.config.settings import get_settings
+
 
 def get_storage_client() -> storage.Client:
     settings = get_settings()

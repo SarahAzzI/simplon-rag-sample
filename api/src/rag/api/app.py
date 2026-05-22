@@ -1,14 +1,11 @@
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
+from prometheus_fastapi_instrumentator import Instrumentator
 
+from rag.api.middleware import RequestIdMiddleware
 from rag.api.routers import chat, eval, health, ingestion
 from rag.db.session import engine
-from prometheus_fastapi_instrumentator import Instrumentator
-from rag.api.middleware import RequestIdMiddleware
-
-
-
 
 
 @asynccontextmanager
